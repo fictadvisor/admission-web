@@ -1,0 +1,28 @@
+header > .subtitle {
+  color: #7a7a7a;
+}
+
+header {
+  align-items: center;
+  margin-bottom: 3em;
+}
+
+.main-content {
+  padding: 2em 3em;
+}
+
+.field > button:not(:last-child) {
+  margin-right: 10px;
+}
+
+.table th {
+  vertical-align: middle !important;
+}
+
+.table td {
+  vertical-align: middle !important;
+}
+
+.tags .like-tag {
+  margin-bottom: 0;
+}
