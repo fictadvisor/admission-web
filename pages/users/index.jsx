@@ -39,14 +39,11 @@ const UserRow = ({ n, user: u }) => {
             </span>
           </a>
         }
-        {
-          Object.keys(u.details).length > 0 &&
-          <span className="tag is-success" style={{ float: 'right', marginRight: '5px' }} >
-            <span className="icon">
-              <i className="fas fa-id-card"></i>
-            </span>
+        <span className="tag is-success" style={{ float: 'right', marginRight: '5px' }} >
+          <span className="icon">
+            <i className="fas fa-id-card"></i>
           </span>
-        }
+        </span>
       </td>
     </tr>
   );
