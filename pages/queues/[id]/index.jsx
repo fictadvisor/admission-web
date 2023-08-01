@@ -90,58 +90,52 @@ const QueuePage = ({ queue: q, size, update: _update }) => {
         >
           <span>Розглянути наступного</span>
         </button>
-        {
-          api.hasAccess(api.getRole(), 'admin') && 
-          <>
-            <button
-              className={`button ${q.active ? 'is-danger' : 'is-success'} is-outlined ${loading ? 'is-loading' : ''}`}
-              disabled={loading}
-              onClick={async () => {
-                setLoading(true);
-                
-                try {
-                  await api.put(`${api.QUEUE_API}/admission/queues/${q.id}`, { active: !q.active });
+        <button
+          className={`button ${q.active ? 'is-danger' : 'is-success'} is-outlined ${loading ? 'is-loading' : ''}`}
+          disabled={loading}
+          onClick={async () => {
+            setLoading(true);
 
-                  if (isMounted) {
-                    update();
-                    setLoading(false);
-                  }
-                } catch (e) {
-                  if (isMounted) {
-                    setLoading(false);
-                    setError(e);
-                  }
-                }
-              }}
-            >
-              <span>{q.active ? 'Зупинити чергу' : 'Відновити чергу'}</span>
-            </button>
+            try {
+              await api.patch(`${api.QUEUE_API}/admission/queues/${q.id}`, { active: !q.active });
 
-            <button
-              className={`button ${q.open ? 'is-danger' : 'is-success'} is-light is-outlined ${loading ? 'is-loading' : ''}`}
-              disabled={loading}
-              onClick={async () => {
-                setLoading(true);
-                
-                try {
-                  await api.put(`${api.QUEUE_API}/admission/queues/${q.id}`, { open: !q.open });
+              if (isMounted) {
+                update();
+                setLoading(false);
+              }
+            } catch (e) {
+              if (isMounted) {
+                setLoading(false);
+                setError(e);
+              }
+            }
+          }}
+        >
+          <span>{q.active ? 'Зупинити чергу' : 'Відновити чергу'}</span>
+        </button>
+        <button
+          className={`button ${q.open ? 'is-danger' : 'is-success'} is-light is-outlined ${loading ? 'is-loading' : ''}`}
+          disabled={loading}
+          onClick={async () => {
+            setLoading(true);
 
-                  if (isMounted) {
-                    update();
-                    setLoading(false);
-                  }
-                } catch (e) {
-                  if (isMounted) {
-                    setLoading(false);
-                    setError(e);
-                  }
-                }
-              }}
-            >
-              <span>{q.open ? 'Закрити чергу' : 'Відкрити чергу'}</span>
-            </button>
-          </>
-        }
+            try {
+              await api.patch(`${api.QUEUE_API}/admission/queues/${q.id}`, { open: !q.open });
+
+              if (isMounted) {
+                update();
+                setLoading(false);
+              }
+            } catch (e) {
+              if (isMounted) {
+                setLoading(false);
+                setError(e);
+              }
+            }
+          }}
+        >
+          <span>{q.open ? 'Закрити чергу' : 'Відкрити чергу'}</span>
+        </button>
       </div>
 
       {

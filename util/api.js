@@ -32,7 +32,6 @@ export const getRole = () => role;
 
 export const askLogin = async (force = false) => {
   let token = getToken();
-  console.log(token);
 
   if (token == null || force) {
     const username = askText('Введіть вашу пошту');
@@ -42,8 +41,6 @@ export const askLogin = async (force = false) => {
       username,
       password,
     });
-
-    console.log(data);
 
     setToken(data.refreshToken);
   }
@@ -93,8 +90,8 @@ export const post = (url, data, options = {}, op = true) => {
   });
 };
 
-export const put = (url, data, options = {}, op = true) => {
-  return axios.put(url, data, {
+export const patch = (url, data, options = {}, op = true) => {
+  return axios.patch(url, data, {
     headers: {
       Authorization: getAuthHeader(op),
     },

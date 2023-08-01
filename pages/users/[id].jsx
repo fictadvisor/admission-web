@@ -33,8 +33,6 @@ const UserPage = ({ user: u, queues, update }) => {
   const [dropdownQueue, setDropdownQueue] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const detailsKeys = Object.keys(u.details);
-  const hasDetails = detailsKeys.length > 0;
 
   return (
     <div>
@@ -112,24 +110,21 @@ const UserPage = ({ user: u, queues, update }) => {
           </div>
         </div>
       }
-      {
-        hasDetails &&
-        <div style={{ textAlign: 'center', marginBottom: '16px' }}>
-          <b>Додаткова інформація</b>
-          <table className="table is-bordered is-striped is-fullwidth" style={{ marginTop: '16px' }}>
-            <tbody>
-              <tr key="lastName"><th>Прізвище</th><td>{ u.lastName }</td></tr>
-              <tr key="firstName"><th>Ім'я</th><td>{ u.firstName }</td></tr>
-              <tr key="middleName"><th>По батькові</th><td>{ u.middleName }</td></tr>
-              <tr key="speciality"><th>Спеціальність</th><td>{ u.speciality }</td></tr>
-              <tr key="phone"><th>Номер телефону</th><td>{ u.phone }</td></tr>
-              <tr key="email"><th>Пошта</th><td>{ u.email }</td></tr>
-              <tr key="isDorm"><th>Чи планує селитися?</th><td>{ u.isDorm }</td></tr>
-              <tr key="printedEdbo"><th>Чи роздрукована заява ЄДЕБО?</th><td>{ u.printedEdbo }</td></tr>
-            </tbody>
-          </table>
-        </div>
-      }
+      <div style={{ textAlign: 'center', marginBottom: '16px' }}>
+        <b>Додаткова інформація</b>
+        <table className="table is-bordered is-striped is-fullwidth" style={{ marginTop: '16px' }}>
+          <tbody>
+            <tr key="lastName"><th>Прізвище</th><td>{ u.lastName }</td></tr>
+            <tr key="firstName"><th>Ім'я</th><td>{ u.firstName }</td></tr>
+            <tr key="middleName"><th>По батькові</th><td>{ u.middleName }</td></tr>
+            <tr key="speciality"><th>Спеціальність</th><td>{ u.speciality }</td></tr>
+            <tr key="phone"><th>Номер телефону</th><td>{ u.phone }</td></tr>
+            <tr key="email"><th>Пошта</th><td>{ u.email }</td></tr>
+            <tr key="isDorm"><th>Чи планує селитися?</th><td>{ u.isDorm ? `Так` : `Ні` }</td></tr>
+            <tr key="printedEdbo"><th>Чи роздрукована заява ЄДЕБО?</th><td>{ u.printedEdbo ? `Так` : `Ні` }</td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

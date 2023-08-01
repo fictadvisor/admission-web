@@ -23,7 +23,7 @@ const ProcessingPage = ({ queue: q, user: u, position: p, update }) => {
               if (num && Number.isSafeInteger(num) && num > 0) {
                 setLoading(true);
 
-                await api.put(`${api.QUEUE_API}/admission/queues/${q.id}/users/${u.id}`, { status: 'waiting', position: p.position + num })
+                await api.patch(`${api.QUEUE_API}/admission/queues/${q.id}/users/${u.id}`, { status: 'waiting', position: p.position + num })
                   .catch(console.error);
 
                 if (isMounted) {
@@ -66,7 +66,7 @@ const ProcessingPage = ({ queue: q, user: u, position: p, update }) => {
               className={`button is-fullwidth is-link ${loading ? 'is-loading' : ''}`}
               disabled={loading}
               onClick={async () => {
-                await api.put(`${api.QUEUE_API}/admission/queues/${q.id}/users/${u.id}`, { status: 'processing' })
+                await api.patch(`${api.QUEUE_API}/admission/queues/${q.id}/users/${u.id}`, { status: 'processing' })
                     .catch(console.error);
 
                 if (isMounted) {

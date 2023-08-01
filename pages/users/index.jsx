@@ -24,13 +24,13 @@ const UserRow = ({ n, user: u }) => {
       <td width="100%">
         <b><a href={`/users/${u.id}`}>{name}</a></b>
         {
-          (u.username && u.telegram) &&
+          (u.username && u.telegramId) &&
           <a href={`https://t.me/${u.username}`} style={{ marginLeft: '5px' }}>
             (@{u.username})
           </a>
         }
         {
-          u.telegram &&
+          u.telegramId &&
           <a href={u.username ? `https://t.me/${u.username}` : null} target="_blank">
             <span className="tag is-info" style={{ float: 'right' }}>
               <span className="icon">

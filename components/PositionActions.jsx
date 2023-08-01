@@ -15,7 +15,7 @@ const PositionActions = ({ user: u, queue: q, status, position, update }) => {
         disabled={loading || !isOp}
         onClick={async () => {
           if (status != 'processing' && status != 'going') {
-            await api.put(`${api.QUEUE_API}/admission/queues/${q.id}/users/${u.id}`, { status: 'going' })
+            await api.patch(`${api.QUEUE_API}/admission/queues/${q.id}/users/${u.id}`, { status: 'going' })
               .then(() => isMounted && router.push(`/queues/${q.id}/users/${u.id}`))
               .catch(console.error);
           } else {
@@ -34,7 +34,7 @@ const PositionActions = ({ user: u, queue: q, status, position, update }) => {
           if (num && Number.isSafeInteger(num) && num > 0) {
             setLoading(true);
 
-            await api.put(`${api.QUEUE_API}/admission/queues/${q.id}/users/${u.id}`, { status: 'waiting', position: position + num })
+            await api.patch(`${api.QUEUE_API}/admission/queues/${q.id}/users/${u.id}`, { status: 'waiting', position: position + num })
               .catch(console.error);
 
             if (isMounted) {
