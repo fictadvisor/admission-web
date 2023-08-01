@@ -34,19 +34,25 @@ export const askLogin = async (force = false) => {
   let token = getToken();
 
   if (token == null || force) {
-    const username = askText('Введіть ваш юзернейм');
+    const username = askText('Введіть вашу пошту');
     const password = askText('Введіть ваш пароль');
-    token = Buffer.from(`${username}:${password}`, 'utf8').toString('base64');
+
+    const { data } = await this.post(`${QUEUE_API}/auth/login`, {
+      username,
+      password,
+    });
+
+    setToken(data.refreshToken);
   }
 
   try {
-    const { data } = await axios.get(`${QUEUE_API}/auth`, {
+    const { data } = await axios.get(`${QUEUE_API}/auth/me`, {
       headers: {
-        Authorization: `Basic ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
-    role = data.role;
+    role = data.id;
 
     setToken(token);
 
@@ -65,7 +71,7 @@ export const getOperator = () => process.browser ? (localStorage.getItem('local.
 
 export const setOperator = (str) => localStorage.setItem('local.operator', str);
 
-const getAuthHeader = (op) => op ? `Basic ${getToken()} ${getOperator() ?? 0}` : `Basic ${getToken()}`;
+const getAuthHeader = (op) => op ? `Bearer ${getToken()} ${getOperator() ?? 0}` : `Bearer ${getToken()}`;
 
 export const fetch = async (path) => {
   const { data } = await axios.get(path, {
