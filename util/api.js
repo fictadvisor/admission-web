@@ -61,8 +61,8 @@ export const askLogin = async (force = false) => {
 
     return data;
   } catch (e) {
+    alert('Перезавантаж сторінку, а то щось сталося дивне :(')
     console.log(e)
-    return await askLogin();
   }
 };
 
