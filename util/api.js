@@ -32,6 +32,7 @@ export const getRole = () => role;
 
 export const askLogin = async (force = false) => {
   let token = getToken();
+  console.log(token);
 
   if (token == null || force) {
     const username = askText('Введіть вашу пошту');
@@ -41,6 +42,8 @@ export const askLogin = async (force = false) => {
       username,
       password,
     });
+
+    console.log(data);
 
     setToken(data.refreshToken);
   }
@@ -58,6 +61,7 @@ export const askLogin = async (force = false) => {
 
     return data;
   } catch (e) {
+    console.log(e)
     window.alert(e.response?.data?.message ?? e.toString());
     return await askLogin();
   }
