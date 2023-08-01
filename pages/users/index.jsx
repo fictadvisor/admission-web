@@ -76,7 +76,7 @@ export default function UsersPageContainer() {
   const [page, setPage] = useState(0);
 
   const skip = page * PAGE_SIZE;
-  const { data, error, revalidate, isValidating } = useSWR(`${api.QUEUE_API}/users?skip=${skip}&take=${PAGE_SIZE}${!query ? '' : `&search=${query}`}`, api.fetch, { shouldRetryOnError: true });
+  const { data, error, revalidate, isValidating } = useSWR(`${api.QUEUE_API}/admission/users?skip=${skip}&take=${PAGE_SIZE}${!query ? '' : `&search=${query}`}`, api.fetch, { shouldRetryOnError: true });
 
   return (
     <PageContainer title="Користувачі" subtitle="Список зареєстрованих користувачів">

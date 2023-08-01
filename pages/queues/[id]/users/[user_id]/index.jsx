@@ -23,7 +23,7 @@ const ProcessingPage = ({ queue: q, user: u, position: p, update }) => {
               if (num && Number.isSafeInteger(num) && num > 0) {
                 setLoading(true);
 
-                await api.put(`${api.QUEUE_API}/queues/${q.id}/users/${u.id}`, { status: 'waiting', position: p.position + num })
+                await api.put(`${api.QUEUE_API}/admission/queues/${q.id}/users/${u.id}`, { status: 'waiting', position: p.position + num })
                   .catch(console.error);
 
                 if (isMounted) {
@@ -43,7 +43,7 @@ const ProcessingPage = ({ queue: q, user: u, position: p, update }) => {
                 setLoading(true);
 
                 try {
-                  await api.delete(`${api.QUEUE_API}/queues/${q.id}/users/${u.id}`)
+                  await api.delete(`${api.QUEUE_API}/admission/queues/${q.id}/users/${u.id}`)
 
                   if (isMounted) {
                     router.push(`/queues/${q.id}`);
@@ -66,7 +66,7 @@ const ProcessingPage = ({ queue: q, user: u, position: p, update }) => {
               className={`button is-fullwidth is-link ${loading ? 'is-loading' : ''}`}
               disabled={loading}
               onClick={async () => {
-                await api.put(`${api.QUEUE_API}/queues/${q.id}/users/${u.id}`, { status: 'processing' })
+                await api.put(`${api.QUEUE_API}/admission/queues/${q.id}/users/${u.id}`, { status: 'processing' })
                     .catch(console.error);
 
                 if (isMounted) {
@@ -86,7 +86,7 @@ const ProcessingPage = ({ queue: q, user: u, position: p, update }) => {
 
 const ProcessingPageContainer = () => {
   const router = useRouter();
-  const { data, error, revalidate, isValidating } = useSWR(`${api.QUEUE_API}/queues/${router.query.id}/users/${router.query.user_id}`, api.fetch, { shouldRetryOnError: false, refreshInterval: 1000 });
+  const { data, error, revalidate, isValidating } = useSWR(`${api.QUEUE_API}/admission/queues/${router.query.id}/users/${router.query.user_id}`, api.fetch, { shouldRetryOnError: false, refreshInterval: 1000 });
   const queueName = data ? data.queue.name : 'Завантажується...';
   const name = data ? `${data.user.firstName}${data.user.lastName ? ` ${data.user.lastName}` : ''}` : 'Завантажується...';
 

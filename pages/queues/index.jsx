@@ -58,7 +58,7 @@ const QueuesPage = ({ data }) => {
 };
 
 export default function QueuesPageContainer() {
-  const { data, error, revalidate, isValidating } = useSWR(`${api.QUEUE_API}/queues`, api.fetch, { shouldRetryOnError: true });
+  const { data, error, revalidate, isValidating } = useSWR(`${api.QUEUE_API}/admission/queues`, api.fetch, { shouldRetryOnError: true });
 
   return (
     <PageContainer title="Черги" subtitle="Список існуючих черг">

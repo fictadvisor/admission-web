@@ -22,7 +22,7 @@ const CreateQueuePage = () => {
           setLoading(true);
 
           try {
-            const { data } = await api.post(`${api.QUEUE_API}/queues`, { name });
+            const { data } = await api.post(`${api.QUEUE_API}/admission/queues`, { name });
             router.push(`/queues/${data.queue.id}`);
           } catch (e) {
             if (isMounted) {

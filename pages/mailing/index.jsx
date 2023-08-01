@@ -24,7 +24,7 @@ const types = [
 ];
 
 const MailingPage = () => {
-  const { data: qdata } = useSWR(`${api.QUEUE_API}/queues`, api.fetch, { shouldRetryOnError: true });
+  const { data: qdata } = useSWR(`${api.QUEUE_API}/admission/queues`, api.fetch, { shouldRetryOnError: true });
   const isMounted = useRef(true);
   const [type, setType] = useState(null);
   const [queue, setQueue] = useState(null);
@@ -56,7 +56,7 @@ const MailingPage = () => {
           setLoading(true);
 
           try {
-            const { data } = await api.post(`${api.QUEUE_API}/mailing`, {
+            const { data } = await api.post(`${api.QUEUE_API}/admissionmailing`, {
               selector: type,
               message: text,
               queue_id: queue,

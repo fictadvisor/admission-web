@@ -5,7 +5,7 @@ import { askLogin, getToken, QUEUE_API, fetch, setToken } from "../util/api";
 import useSWR from "swr";
 
 const PageContainer = ({ pageTitle, title, subtitle, children }) => {
-  const { data, error } = useSWR(`${QUEUE_API}/auth`, fetch, { errorRetryInterval: 1000, errorRetryCount: Number.MAX_SAFE_INTEGER });
+  const { data, error } = useSWR(`${QUEUE_API}/auth/me`, fetch, { errorRetryInterval: 1000, errorRetryCount: Number.MAX_SAFE_INTEGER });
   const pageSubtitle = subtitle ?? title;
 
   useEffect(() => { askLogin(); }, [error]);

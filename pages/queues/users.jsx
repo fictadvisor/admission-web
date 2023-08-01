@@ -10,7 +10,7 @@ import { v4 as uuid } from 'uuid';
 
 const CreateUserPage = () => {
   const isMounted = useRef(true);
-  const { data: qdata } = useSWR(`${api.QUEUE_API}/queues`, api.fetch, { shouldRetryOnError: true })
+  const { data: qdata } = useSWR(`${api.QUEUE_API}/admission/queues`, api.fetch, { shouldRetryOnError: true })
   const [dropdownQueue, setDropdownQueue] = useState(null);
   const router = useRouter();
   const [error, setError] = useState(null);
@@ -37,8 +37,8 @@ const CreateUserPage = () => {
 
           try {
             const queueId = dropdownQueue;
-            const { data: { user } } = await api.post(`${api.QUEUE_API}/users`, { id: uuid(), first_name: firstName, last_name: lastName, telegram: false });
-            await api.post(`${api.QUEUE_API}/queues/${queueId}/users`, { id: user.id, force: true });
+            const { data: { user } } = await api.post(`${api.QUEUE_API}/admission/users`, { id: uuid(), first_name: firstName, last_name: lastName, telegram: false });
+            await api.post(`${api.QUEUE_API}/admission/queues/${queueId}/users`, { id: user.id, force: true });
 
             router.push(`/users/${user.id}`);
           } catch (e) {

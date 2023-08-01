@@ -37,7 +37,7 @@ const QueuePage = ({ queue: q, size, update: _update }) => {
   const [error, setError] = useState(null);
   const [page, setPage] = useState(0);
   const skip = page * PAGE_SIZE;
-  const { data, error: listError, revalidate } = useSWR(`${api.QUEUE_API}/queues/${q.id}/users?skip=${skip}&take=${PAGE_SIZE}`, api.fetch, { shouldRetryOnError: true, refreshInterval: 5000 });
+  const { data, error: listError, revalidate } = useSWR(`${api.QUEUE_API}/admission/queues/${q.id}/users?skip=${skip}&take=${PAGE_SIZE}`, api.fetch, { shouldRetryOnError: true, refreshInterval: 5000 });
   const queueSize = data ? data.count : size;
   const update = () => { revalidate(); _update(); };
 
@@ -75,7 +75,7 @@ const QueuePage = ({ queue: q, size, update: _update }) => {
             setLoading(true);
 
             try {
-              const { data } = await api.post(`${api.QUEUE_API}/queues/${q.id}/advance`);
+              const { data } = await api.post(`${api.QUEUE_API}/admission/queues/${q.id}/advance`);
 
               if (isMounted) {
                 router.push(`/queues/${q.id}/users/${data.user.id}`);
@@ -100,7 +100,7 @@ const QueuePage = ({ queue: q, size, update: _update }) => {
                 setLoading(true);
                 
                 try {
-                  await api.put(`${api.QUEUE_API}/queues/${q.id}`, { active: !q.active });
+                  await api.put(`${api.QUEUE_API}/admission/queues/${q.id}`, { active: !q.active });
 
                   if (isMounted) {
                     update();
@@ -124,7 +124,7 @@ const QueuePage = ({ queue: q, size, update: _update }) => {
                 setLoading(true);
                 
                 try {
-                  await api.put(`${api.QUEUE_API}/queues/${q.id}`, { open: !q.open });
+                  await api.put(`${api.QUEUE_API}/admission/queues/${q.id}`, { open: !q.open });
 
                   if (isMounted) {
                     update();
@@ -183,7 +183,7 @@ const QueuePage = ({ queue: q, size, update: _update }) => {
 
 export default function QueuePageContainer() {
   const router = useRouter();
-  const { data, error, revalidate, isValidating } = useSWR(`${api.QUEUE_API}/queues/${router.query.id}`, api.fetch, { shouldRetryOnError: false });
+  const { data, error, revalidate, isValidating } = useSWR(`${api.QUEUE_API}/admission/queues/${router.query.id}`, api.fetch, { shouldRetryOnError: false });
   const name = data ? data.queue.name : 'Завантажується...';
 
   return (

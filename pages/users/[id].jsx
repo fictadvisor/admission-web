@@ -29,32 +29,21 @@ const QueueRow = ({ queue: q, user: u, update }) => {
 
 const UserPage = ({ user: u, queues, update }) => {
   const isMounted = useRef(true);
-  const registrationTemplate = useSWR(`${api.QUEUE_API}/templates/registration`, api.fetch, { shouldRetryOnError: true });
-  const { data: qdata } = useSWR(`${api.QUEUE_API}/queues`, api.fetch, { shouldRetryOnError: true });
+  const { data: qdata } = useSWR(`${api.QUEUE_API}/admission/queues`, api.fetch, { shouldRetryOnError: true });
   const [dropdownQueue, setDropdownQueue] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const detailsKeys = Object.keys(u.details);
   const hasDetails = detailsKeys.length > 0;
 
-  const translation = {};
-
-  if (registrationTemplate.data) {
-    registrationTemplate.data.template.tokens.forEach(t => translation[t.token] = t.name);
-  }
-
   return (
     <div>
       <div className="tags">
         {
-          u.telegram &&
+          u.telegramId &&
           <a className="tag is-info" href={u.username ? `https://t.me/${u.username}` : null} target="_blank">Telegram</a>
         }
-        {
-          hasDetails > 0 
-            ? <span className="tag is-success">Пройшов попередню реєстрацію</span>
-            : <span className="tag is-danger">Не пройшов попередню реєстрацію</span>
-        }
+        <span className="tag is-success">Пройшов попередню реєстрацію</span>
       </div>
 
       <hr />
@@ -71,7 +60,7 @@ const UserPage = ({ user: u, queues, update }) => {
         disabled={!dropdownQueue || loading}
         onClick={async () => {
           try {
-            await api.post(`${api.QUEUE_API}/queues/${dropdownQueue}/users`, { id: u.id, force: true });
+            await api.post(`${api.QUEUE_API}/admission/queues/${dropdownQueue}/users`, { id: u.id, force: true });
 
             if (isMounted) {
               update();
@@ -129,9 +118,14 @@ const UserPage = ({ user: u, queues, update }) => {
           <b>Додаткова інформація</b>
           <table className="table is-bordered is-striped is-fullwidth" style={{ marginTop: '16px' }}>
             <tbody>
-              {
-                detailsKeys.map(k => <tr key={k}><th>{translation[k] ?? k}</th><td>{u.details[k]}</td></tr>)
-              }
+              <tr key="lastName"><th>Прізвище</th><td>{ u.lastName }</td></tr>
+              <tr key="firstName"><th>Ім'я</th><td>{ u.firstName }</td></tr>
+              <tr key="middleName"><th>По батькові</th><td>{ u.middleName }</td></tr>
+              <tr key="speciality"><th>Спеціальність</th><td>{ u.speciality }</td></tr>
+              <tr key="phone"><th>Номер телефону</th><td>{ u.phone }</td></tr>
+              <tr key="email"><th>Пошта</th><td>{ u.email }</td></tr>
+              <tr key="isDorm"><th>Чи планує селитися?</th><td>{ u.isDorm }</td></tr>
+              <tr key="printedEdbo"><th>Чи роздрукована заява ЄДЕБО?</th><td>{ u.printedEdbo }</td></tr>
             </tbody>
           </table>
         </div>
@@ -142,8 +136,8 @@ const UserPage = ({ user: u, queues, update }) => {
 
 export default function UserPageContainer() {
   const router = useRouter();
-  const { data, error, revalidate, isValidating } = useSWR(`${api.QUEUE_API}/users/${router.query.id}`, api.fetch, { shouldRetryOnError: false });
-  const name = data ? `${data.user.firstName}${data.user.lastName ? ` ${data.user.lastName}` : ''}` : 'Завантажується...';
+  const { data, error, revalidate, isValidating } = useSWR(`${api.QUEUE_API}/admission/users/${router.query.id}`, api.fetch, { shouldRetryOnError: false });
+  const name = data ? `${data.user.firstName} ${data.user.lastName}` : 'Завантажується...';
 
   return (
     <PageContainer pageTitle={name} title={data ? <>{name}<span style={{ float: 'right', marginLeft: '5px', fontSize: '12px' }}>id: {data.user.id}</span></> : name}>
