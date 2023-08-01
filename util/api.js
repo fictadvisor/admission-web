@@ -62,7 +62,6 @@ export const askLogin = async (force = false) => {
     return data;
   } catch (e) {
     console.log(e)
-    window.alert(e.response?.data?.message ?? e.toString());
     return await askLogin();
   }
 };
