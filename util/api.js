@@ -38,7 +38,7 @@ export const askLogin = async (force = false) => {
     const username = askText('Введіть вашу пошту');
     const password = askText('Введіть ваш пароль');
 
-    const { data } = await this.post(`${QUEUE_API}/auth/login`, {
+    const { data } = await post(`${QUEUE_API}/auth/login`, {
       username,
       password,
     });
@@ -56,8 +56,6 @@ export const askLogin = async (force = false) => {
     });
 
     role = data.id;
-
-    setToken(token);
 
     return data;
   } catch (e) {
