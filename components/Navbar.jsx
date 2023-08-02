@@ -1,6 +1,4 @@
 import { useRouter } from 'next/router';
-import { askOperator, getOperator, hasAccess, getRole } from '../util/api';
-import { useEffect, useState } from 'react';
 
 const Navbar = ({ auth: user, logout }) => {
   const router = useRouter();
@@ -19,10 +17,6 @@ const Navbar = ({ auth: user, logout }) => {
         <div className="navbar-start" style={{ margin: 'auto' }}>
           <a className="navbar-item" onClick={() => router.push('/users')}>
             Користувачі
-          </a>
-
-          <a className="navbar-item" onClick={() => router.push('/mailing')}>
-            Розсилка
           </a>
 
           <div className="navbar-item has-dropdown is-hoverable">
