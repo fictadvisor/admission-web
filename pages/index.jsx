@@ -1,11 +1,8 @@
-import PageContainer from '../components/PageContainer';
-import DocumentEditor from '../components/DocumentEditor';
+import UsersPageContainer from "./users";
 
 export default function Home() {
   return (
-    <PageContainer title="Створення документу" subtitle="Оберіть шаблон для початку роботи">
-      <DocumentEditor />
-    </PageContainer>
+    <UsersPageContainer/>
   )
 };
 
