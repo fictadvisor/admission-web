@@ -13,11 +13,12 @@ const PositionActions = ({ user: u, queue: q, status, position, update }) => {
         className={`button is-success is-small ${loading ? 'is-loading' : ''}`}
         disabled={loading}
         onClick={async () => {
-          if (status !== 'PROCESSING' && status !== 'GOING') {
+          if (status === 'WAITING') {
             await api.patch(`${api.QUEUE_API}/admission/queues/${q.id}/users/${u.id}`, { status: 'GOING' })
               .catch(console.error);
-          } else {
-            router.push(`/queues/${q.id}/users/${u.id}`);
+          } else if (status === 'GOING') {
+            await api.patch(`${api.QUEUE_API}/admission/queues/${q.id}/users/${u.id}`, { status: 'PROCESSING' })
+              .catch(console.error);
           }
         }}
       >

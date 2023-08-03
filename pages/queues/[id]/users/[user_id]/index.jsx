@@ -70,8 +70,7 @@ const ProcessingPage = ({ queue: q, user: u, position: p, update }) => {
                     .catch(console.error);
 
                 if (isMounted) {
-                  update();
-                  setLoading(false);
+                  router.push(`/queues/${q.id}`);
                 }
               }}
             >
