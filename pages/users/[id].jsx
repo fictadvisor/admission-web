@@ -15,7 +15,7 @@ const QueueRow = ({ queue: q, user: u, update }) => {
   return (
     <tr>
       <th><a href={`/queues/${q.id}`} onClick={() => router.push(`/queues/${q.id}`)}>{q.name}</a></th>
-      <td>{q.position.status === 'processing' ? '-' : q.position.relativePosition}</td>
+      <td>{q.position.status === 'PROCESSING' ? '-' : q.position.relativePosition}</td>
       <td>{q.position.code}</td>
       <td>
         <span className={`tag ${status.color}`}>{status.name}</span>

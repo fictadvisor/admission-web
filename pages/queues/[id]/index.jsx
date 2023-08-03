@@ -15,7 +15,7 @@ const PositionRow = ({ n, queue: q, position: p, update }) => {
 
   return (
     <tr>
-      <th width="0%">{p.status === 'processing' ? '-' : p.relativePosition}</th>
+      <th width="0%">{p.status === 'PROCESSING' ? '-' : p.relativePosition}</th>
       <th width="0%">{p.code}</th>
       <th width="50%"><a href={`/users/${u.id}`} onClick={() => router.push(`/users/${u.id}`)}>{`${u.firstName}${u.lastName ? ` ${u.lastName}` : ''}`}</a></th>
       <td width="0%">

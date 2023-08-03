@@ -6,16 +6,15 @@ const PositionActions = ({ user: u, queue: q, status, position, update }) => {
   const router = useRouter();
   const isMounted = useRef(true);
   const [loading, setLoading] = useState(false);
-  const isOp = api.hasAccess(api.getRole(), 'operator');
 
   return (
     <div className="buttons is-fullwidth is-centered">
       <button 
         className={`button is-success is-small ${loading ? 'is-loading' : ''}`}
-        disabled={loading || !isOp}
+        disabled={loading}
         onClick={async () => {
-          if (status != 'processing' && status != 'going') {
-            await api.patch(`${api.QUEUE_API}/admission/queues/${q.id}/users/${u.id}`, { status: 'going' })
+          if (status !== 'PROCESSING' && status !== 'GOING') {
+            await api.patch(`${api.QUEUE_API}/admission/queues/${q.id}/users/${u.id}`, { status: 'GOING' })
               .then(() => isMounted && router.push(`/queues/${q.id}/users/${u.id}`))
               .catch(console.error);
           } else {
@@ -27,14 +26,14 @@ const PositionActions = ({ user: u, queue: q, status, position, update }) => {
       </button>
       <button 
         className={`button is-warning is-small ${loading ? 'is-loading' : ''}`}
-        disabled={loading || !isOp}
+        disabled={loading}
         onClick={async () => {
           const response = window.prompt('На скільки позицій ви хочете посунути цього користувача?', '10');
           const num = parseInt(response);
           if (num && Number.isSafeInteger(num) && num > 0) {
             setLoading(true);
 
-            await api.patch(`${api.QUEUE_API}/admission/queues/${q.id}/users/${u.id}`, { status: 'waiting', position: position + num })
+            await api.patch(`${api.QUEUE_API}/admission/queues/${q.id}/users/${u.id}`, { status: 'WAITING', position: position + num })
               .catch(console.error);
 
             if (isMounted) {
@@ -48,7 +47,7 @@ const PositionActions = ({ user: u, queue: q, status, position, update }) => {
       </button>
       <button 
         className={`button is-danger is-small ${loading ? 'is-loading' : ''}`}
-        disabled={loading || !isOp}
+        disabled={loading}
         onClick={async () => {
           const yes = window.confirm('Ви впевнені, що хочете видалити цього користувача з черги?');
           if (yes) {
