@@ -1,13 +1,13 @@
 export default {
-  waiting: {
+  WAITING: {
     name: 'Очікує',
     color: 'is-link',
   },
-  going: {
+  GOING: {
     name: 'Піднімається',
     color: 'is-primary',
   },
-  processing: {
+  PROCESSING: {
     name: 'Розглядається',
     color: 'is-success',
   },

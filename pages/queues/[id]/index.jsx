@@ -70,7 +70,7 @@ const QueuePage = ({ queue: q, size, update: _update }) => {
       <div className="field is-grouped">
         <button
           className={`button is-info is-fullwidth ${loading ? 'is-loading' : ''}`}
-          disabled={loading || size === 0 || !api.hasAccess(api.getRole(), 'operator')}
+          disabled={loading || size === 0}
           onClick={async () => {
             setLoading(true);
 
