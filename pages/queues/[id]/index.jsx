@@ -75,11 +75,7 @@ const QueuePage = ({ queue: q, size, update: _update }) => {
             setLoading(true);
 
             try {
-              const { data } = await api.post(`${api.QUEUE_API}/admission/queues/${q.id}/advance`);
-
-              if (isMounted) {
-                router.push(`/queues/${q.id}/users/${data.user.id}`);
-              }
+              await api.post(`${api.QUEUE_API}/admission/queues/${q.id}/advance`);
             } catch (e) {
               if (isMounted) {
                 setLoading(false);

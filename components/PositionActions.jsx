@@ -15,7 +15,6 @@ const PositionActions = ({ user: u, queue: q, status, position, update }) => {
         onClick={async () => {
           if (status !== 'PROCESSING' && status !== 'GOING') {
             await api.patch(`${api.QUEUE_API}/admission/queues/${q.id}/users/${u.id}`, { status: 'GOING' })
-              .then(() => isMounted && router.push(`/queues/${q.id}/users/${u.id}`))
               .catch(console.error);
           } else {
             router.push(`/queues/${q.id}/users/${u.id}`);
