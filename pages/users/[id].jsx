@@ -117,7 +117,7 @@ const UserPage = ({ user: u, queues, update }) => {
             <tr key="lastName"><th>Прізвище</th><td>{ u.lastName }</td></tr>
             <tr key="firstName"><th>Ім'я</th><td>{ u.firstName }</td></tr>
             <tr key="middleName"><th>По батькові</th><td>{ u.middleName }</td></tr>
-            <tr key="speciality"><th>Спеціальність</th><td>{ u.speciality }</td></tr>
+            <tr key="speciality"><th>Спеціальність</th><td>{ u.specialty }</td></tr>
             <tr key="phone"><th>Номер телефону</th><td>{ u.phone }</td></tr>
             <tr key="email"><th>Пошта</th><td>{ u.email }</td></tr>
             <tr key="isDorm"><th>Чи планує селитися?</th><td>{ u.isDorm ? `Так` : `Ні` }</td></tr>
